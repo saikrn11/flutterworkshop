@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterworkshop/constants/appcolors.dart';
-import 'package:flutterworkshop/constants/appfonts.dart';
-
 import 'package:url_launcher/url_launcher.dart';
+
+import '../constants/appcolors.dart';
+import '../constants/appfonts.dart';
 
 class PoweredBy extends StatelessWidget {
   final GlobalKey? widgetKey;

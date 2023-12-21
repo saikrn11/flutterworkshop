@@ -1,12 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutterworkshop/constants/appcolors.dart';
-import 'package:flutterworkshop/constants/appfonts.dart';
-import 'package:flutterworkshop/constants/apptheme.dart';
-import 'package:flutterworkshop/screens/homescreen.dart';
-import 'package:flutterworkshop/widgets/poweredby.dart';
 import 'package:lottie/lottie.dart';
+
+import '../constants/appcolors.dart';
+import '../constants/appfonts.dart';
+import '../constants/apptheme.dart';
+import '../screens/homescreen.dart';
+import '../widgets/poweredby.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -56,7 +56,6 @@ class _SplashScreenState extends State<SplashScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
- 
             Center(
               child: ScaleTransition(
                 scale: _animation,
@@ -80,7 +79,6 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ),
             ),
-
           ],
         ),
       ),
@@ -104,7 +102,6 @@ class NextScreen extends StatefulWidget {
 class _NextScreenState extends State<NextScreen> {
   @override
   void initState() {
-   
     super.initState();
 
     Timer(const Duration(seconds: 2), () {
@@ -113,16 +110,22 @@ class _NextScreenState extends State<NextScreen> {
           MaterialPageRoute(builder: (context) => const HomeScreen()));
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       backgroundColor: const Color(0xFFD3EAF5),
-      body: Column(children: [
-        const Spacer(),
-         Center(
+        backgroundColor: const Color(0xFFD3EAF5),
+        body: Column(
+          children: [
+            const Spacer(),
+            Center(
               child: Column(
                 children: [
-                   Image.asset('assets/logo.png',height: 100,width: 300,),
+                  Image.asset(
+                    'assets/logo.png',
+                    height: 100,
+                    width: 300,
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -138,9 +141,11 @@ class _NextScreenState extends State<NextScreen> {
             const Spacer(),
 
             // Text: "Welcome to the Flutter Workshop"
-             Text(
+            Text(
               "Welcome to the Flutter Workshop",
-              style: Fonts().h3l(context).copyWith(fontWeight: FontWeight.bold,color: themecolor),
+              style: Fonts()
+                  .h3l(context)
+                  .copyWith(fontWeight: FontWeight.bold, color: themecolor),
             ),
             const Spacer(),
 
@@ -157,7 +162,7 @@ class _NextScreenState extends State<NextScreen> {
             // Powered by TeamUP Container
             const PoweredBy(),
             const Spacer(),
-      ],)
-    );
+          ],
+        ));
   }
 }

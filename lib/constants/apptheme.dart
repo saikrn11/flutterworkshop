@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterworkshop/constants/appcolors.dart';
-import 'package:flutterworkshop/constants/appfonts.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../constants/appcolors.dart';
+import '../constants/appfonts.dart';
 
 Color themecolor = primarySwatch;
 ThemeData theme(BuildContext context) {

@@ -1,9 +1,7 @@
-
-
-import 'package:flutterworkshop/screens/day1.dart';
-import 'package:flutterworkshop/screens/day2.dart';
-import 'package:flutterworkshop/screens/day3.dart';
-import 'package:flutterworkshop/screens/day4.dart';
+import '../screens/day1.dart';
+import '../screens/day2.dart';
+import '../screens/day3.dart';
+import '../screens/day4.dart';
 
 List images = [
   'assets/day1.png',
@@ -17,9 +15,4 @@ List content = [
   'Flutter Project Development',
   'Flutter App Presentation'
 ];
-List routes = [
-const Day1(),
-const Day2(),
-const Day3(),
-const Day4()
-];
+List routes = [const Day1(), const Day2(), const Day3(), const Day4()];

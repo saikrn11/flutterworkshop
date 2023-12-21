@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutterworkshop/constants/appcolors.dart';
-import 'package:flutterworkshop/constants/appfonts.dart';
+
+import '../constants/appcolors.dart';
+import '../constants/appfonts.dart';
 
 class Day1 extends StatefulWidget {
   const Day1({super.key});

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterworkshop/constants/appfonts.dart';
+
 import '../constants/appcolors.dart';
+import '../constants/appfonts.dart';
+import '../screens/splashscreen.dart';
 
 Future popupCard({
   required BuildContext context,
@@ -90,10 +92,10 @@ Future<bool> showExitConfirmationDialog(BuildContext context) async {
           TextButton(
             onPressed: () {
               Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const SplashScreen(),
-      ),
-    ); // Return true to exit
+                MaterialPageRoute(
+                  builder: (context) => const SplashScreen(),
+                ),
+              ); // Return true to exit
             },
             child: const Text('Exit'),
           ),

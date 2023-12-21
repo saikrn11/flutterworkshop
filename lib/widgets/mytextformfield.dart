@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutterworkshop/constants/appfonts.dart';
 
 import '../constants/appcolors.dart';
-
+import '../constants/appfonts.dart';
 
 class MyTextField extends StatelessWidget {
   final String hint;

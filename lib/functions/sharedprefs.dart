@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutterworkshop/screens/splashscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../screens/splashscreen.dart';
 
 class ShareData {
   username({
@@ -17,7 +16,7 @@ class ShareData {
     }
   }
 
-logOut(context) async {
+  logOut(context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
     Navigator.of(context).pushReplacement(
@@ -26,5 +25,4 @@ logOut(context) async {
       ),
     );
   }
-
 }

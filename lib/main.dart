@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterworkshop/constants/apptheme.dart';
-import 'package:flutterworkshop/screens/splashscreen.dart';
+import '../constants/apptheme.dart';
+import '../screens/splashscreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,4 +20,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterworkshop/constants/appcolors.dart';
-import 'package:flutterworkshop/constants/appfonts.dart';
-import 'package:flutterworkshop/constants/apptheme.dart';
-import 'package:flutterworkshop/constants/data.dart';
-import 'package:flutterworkshop/functions/sharedprefs.dart';
-import 'package:flutterworkshop/widgets/mybutton.dart';
-import 'package:flutterworkshop/widgets/mytextformfield.dart';
-import 'package:flutterworkshop/widgets/popupcard.dart';
+
+import '../constants/appcolors.dart';
+import '../constants/appfonts.dart';
+import '../constants/apptheme.dart';
+import '../constants/data.dart';
+import '../functions/sharedprefs.dart';
+import '../widgets/mybutton.dart';
+import '../widgets/mytextformfield.dart';
+import '../widgets/popupcard.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
