@@ -25,7 +25,6 @@ class HomeScreenState extends State<HomeScreen> {
   TextEditingController controller = TextEditingController();
   final formKey = GlobalKey<FormState>();
   String? username;
-  String? imageUrl;
   DateTime currentDate = DateTime.now();
   bool showconfetti = false;
   ConfettiController? confettiController;
@@ -48,6 +47,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   getname() {
     popupCard(
+      dismiss: false,
       context: context,
       title: Form(
         key: formKey,
@@ -85,15 +85,18 @@ class HomeScreenState extends State<HomeScreen> {
               Future.delayed(
                 const Duration(seconds: 4),
                 () {
-                  setState(() {});
-                  showconfetti = false;
-
+                  setState(() {
+                    showconfetti = false;
+                  });
                 },
               );
             }
           },
           bgColor: blue,
-          child: const Text('Submit'),
+          child: const Text(
+            'Submit',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       ],
     );
@@ -110,7 +113,7 @@ class HomeScreenState extends State<HomeScreen> {
     return date.isAfter(currentDate);
   }
 
-bool isContentUnlocked(int index) {
+  bool isContentUnlocked(int index) {
     DateTime unlockDate = DateTime(2023, 12, 21).add(Duration(days: index));
     DateTime tomorrowDate =
         DateTime(currentDate.year, currentDate.month, currentDate.day + 1);
@@ -154,7 +157,9 @@ bool isContentUnlocked(int index) {
     popupCard(
       context: context,
       title: const Text('Content Locked'),
-      content: const Text('This content is locked!. Please,wait to Unlock it view details.'),
+      content: const Text(
+        'This content is locked!. Please, wait to Unlock it view details.',
+      ),
       actions: [
         MyButton(
           onPressed: () {
@@ -163,7 +168,7 @@ bool isContentUnlocked(int index) {
           bgColor: blue,
           child: Text(
             'OK',
-            style: Fonts().h3m(context).copyWith(color: white),
+            style: Fonts().h3m(context).copyWith(color: Colors.white),
           ),
         ),
       ],
@@ -191,10 +196,10 @@ bool isContentUnlocked(int index) {
                       particleDrag: .1,
                       shouldLoop: false,
                       colors: const [
-                        Colors.green,
                         Colors.blue,
-                        Colors.pink,
+                        Colors.teal,
                         Colors.orange,
+                        Colors.pink,
                         Colors.purple,
                       ],
                     ),
@@ -207,11 +212,11 @@ bool isContentUnlocked(int index) {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
+                          padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             color: Colors.transparent,
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          padding: const EdgeInsets.all(16),
                           child: Image.asset(
                             'assets/h.png',
                             width: 200,
@@ -260,7 +265,7 @@ bool isContentUnlocked(int index) {
                               Text(
                                 "🙏 ${getGreeting()}",
                                 style: Fonts().h3l(context).copyWith(
-                                      color: white,
+                                      color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
@@ -270,7 +275,7 @@ bool isContentUnlocked(int index) {
                               Text(
                                 "$username",
                                 style: Fonts().h3l(context).copyWith(
-                                      color: white,
+                                      color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
@@ -285,8 +290,7 @@ bool isContentUnlocked(int index) {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProfileScreen(username),
+                                  builder: (context) => ProfileScreen(username),
                                 ),
                               );
                             },
@@ -308,7 +312,7 @@ bool isContentUnlocked(int index) {
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: const BoxDecoration(
-                      color: white,
+                      color: Colors.white,
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(20),
                       ),
@@ -318,7 +322,7 @@ bool isContentUnlocked(int index) {
                         Text(
                           'Day-wise Content',
                           style: Fonts().h3l(context).copyWith(
-                                color: black,
+                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),
                         ),
@@ -332,6 +336,10 @@ bool isContentUnlocked(int index) {
                             ),
                             itemCount: 4,
                             itemBuilder: (context, index) => Card(
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
                               color: isContentUnlocked(index)
                                   ? const Color(0xFFDDF8FF)
                                   : grey,
@@ -372,20 +380,23 @@ bool isContentUnlocked(int index) {
                                           showLockedContentPopup(context);
                                         } else {
                                           Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    routes[index],
-                                              ));
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  routes[index],
+                                            ),
+                                          );
                                         }
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
+                                          // border: Border.all(
+                                          //     color: Colors.grey, width: 2),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           color: isContentUnlocked(index)
                                               ? Colors.transparent
                                               : Colors.black.withOpacity(0.6),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
                                         ),
                                         child: isContentUnlocked(index)
                                             ? const SizedBox.shrink()
@@ -414,7 +425,8 @@ bool isContentUnlocked(int index) {
                     children: [
                       Text(
                         'poweredby',
-                        style: Fonts().h4l(context).copyWith(color: grey),
+                        style:
+                            Fonts().h4l(context).copyWith(color: Colors.grey),
                       ),
                       const SizedBox(
                         height: 10,
@@ -424,14 +436,14 @@ bool isContentUnlocked(int index) {
                           Text(
                             'Team-',
                             style: Fonts().h3l(context).copyWith(
-                                  color: black,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
                           Text(
                             'Up!',
                             style: Fonts().h3l(context).copyWith(
-                                  color: red,
+                                  color: Colors.red,
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
