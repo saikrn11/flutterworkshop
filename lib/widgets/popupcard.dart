@@ -89,7 +89,11 @@ Future<bool> showExitConfirmationDialog(BuildContext context) async {
           ),
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(true); // Return true to exit
+              Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const SplashScreen(),
+      ),
+    ); // Return true to exit
             },
             child: const Text('Exit'),
           ),
