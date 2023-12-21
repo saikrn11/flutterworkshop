@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../constants/appcolors.dart';
 import '../constants/appfonts.dart';
 import '../screens/splashscreen.dart';

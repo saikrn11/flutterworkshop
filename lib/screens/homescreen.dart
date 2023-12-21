@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:math';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-
 import '../constants/appcolors.dart';
 import '../constants/appfonts.dart';
 import '../constants/apptheme.dart';
 import '../constants/data.dart';
 import '../functions/sharedprefs.dart';
+import '../screens/splashscreen.dart';
 import '../widgets/mybutton.dart';
 import '../widgets/mytextformfield.dart';
 import '../widgets/popupcard.dart';
@@ -175,286 +175,333 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Future<bool> showExitConfirmationDialog(BuildContext context) async {
+    if (username == null || username!.isEmpty) {
+      // If the username is empty, return false to prevent exiting
+      return false;
+    }
+
+    // If the username is not empty, show the exit confirmation dialog
+    return await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmation'),
+          content: const Text('Are you sure you want to exit?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false); // Return false to not exit
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const SplashScreen(),
+                  ),
+                ); // Return true to exit
+              },
+              child: const Text('Exit'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: ash,
-      body: showconfetti
-          ? Stack(
-              children: [
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: ConfettiWidget(
-                      confettiController: confettiController!,
-                      createParticlePath: drawRandomConfettiShape,
-                      blastDirectionality: BlastDirectionality.explosive,
-                      gravity: 0,
-                      numberOfParticles: 10,
-                      emissionFrequency: .05,
-                      particleDrag: .1,
-                      shouldLoop: false,
-                      colors: const [
-                        Colors.blue,
-                        Colors.teal,
-                        Colors.orange,
-                        Colors.pink,
-                        Colors.purple,
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Image.asset(
-                            'assets/h.png',
-                            width: 200,
-                            height: 200,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          'Congratulations on Flutter Workshop\nwith TeamUp!',
-                          textAlign: TextAlign.center,
-                          style: Fonts().h3l(context).copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            )
-          : Stack(
-              children: [
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    width: size.width,
-                    constraints: BoxConstraints(
-                      maxHeight: size.height,
-                      maxWidth: size.width,
-                    ),
-                    color: themecolor,
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: size.height * .08,
-                              ),
-                              Text(
-                                "🙏 ${getGreeting()}",
-                                style: Fonts().h3l(context).copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "$username",
-                                style: Fonts().h3l(context).copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Positioned(
-                          top: 50,
-                          right: 10,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProfileScreen(username),
-                                ),
-                              );
-                            },
-                            child: const Icon(
-                              Icons.person,
-                              size: 60,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: size.height * 0.22,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20),
+    // ignore: deprecated_member_use
+    return WillPopScope(
+      onWillPop: () {
+      return  showExitConfirmationDialog(context);
+      },
+      child: Scaffold(
+        backgroundColor: ash,
+        body: showconfetti
+            ? Stack(
+                children: [
+                  Positioned.fill(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: ConfettiWidget(
+                        confettiController: confettiController!,
+                        createParticlePath: drawRandomConfettiShape,
+                        blastDirectionality: BlastDirectionality.explosive,
+                        gravity: 0,
+                        numberOfParticles: 10,
+                        emissionFrequency: .05,
+                        particleDrag: .1,
+                        shouldLoop: false,
+                        colors: const [
+                          Colors.blue,
+                          Colors.teal,
+                          Colors.orange,
+                          Colors.pink,
+                          Colors.purple,
+                        ],
                       ),
                     ),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Day-wise Content',
-                          style: Fonts().h3l(context).copyWith(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
-                        Expanded(
-                          child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 8.0,
-                              mainAxisSpacing: 8.0,
-                            ),
-                            itemCount: 4,
-                            itemBuilder: (context, index) => Card(
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              color: isContentUnlocked(index)
-                                  ? const Color(0xFFDDF8FF)
-                                  : grey,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Column(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.asset(
-                                          images[index],
-                                          height: 100,
-                                          width: double.infinity,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          isContentUnlocked(index)
-                                              ? content[index]
-                                              : 'Locked Content',
-                                          style: Fonts().h3m(context).copyWith(
-                                                color: isContentUnlocked(index)
-                                                    ? Colors.black
-                                                    : Colors.grey,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Positioned.fill(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        if (!isContentUnlocked(index)) {
-                                          showLockedContentPopup(context);
-                                        } else {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  routes[index],
-                                            ),
-                                          );
-                                        }
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          // border: Border.all(
-                                          //     color: Colors.grey, width: 2),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: isContentUnlocked(index)
-                                              ? Colors.transparent
-                                              : Colors.black.withOpacity(0.6),
-                                        ),
-                                        child: isContentUnlocked(index)
-                                            ? const SizedBox.shrink()
-                                            : const Center(
-                                                child: Icon(
-                                                  Icons.lock,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
-                ),
-                Positioned(
-                  bottom: 10,
-                  left: size.width * .4,
-                  child: Column(
-                    children: [
-                      Text(
-                        'poweredby',
-                        style:
-                            Fonts().h4l(context).copyWith(color: Colors.grey),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
+                  Positioned.fill(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Team-',
-                            style: Fonts().h3l(context).copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Image.asset(
+                              'assets/h.png',
+                              width: 200,
+                              height: 200,
+                            ),
                           ),
+                          const SizedBox(height: 16),
                           Text(
-                            'Up!',
+                            'Congratulations on Flutter Workshop\nwith TeamUp!',
+                            textAlign: TextAlign.center,
                             style: Fonts().h3l(context).copyWith(
-                                  color: Colors.red,
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
                         ],
                       ),
-                      SizedBox(height: size.height * .05),
-                    ],
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              )
+            : Stack(
+                children: [
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      width: size.width,
+                      constraints: BoxConstraints(
+                        maxHeight: size.height,
+                        maxWidth: size.width,
+                      ),
+                      color: themecolor,
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: size.height * .08,
+                                ),
+                                Text(
+                                  "🙏 ${getGreeting()}",
+                                  style: Fonts().h3l(context).copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "$username",
+                                  style: Fonts().h3l(context).copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: 50,
+                            right: 10,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProfileScreen(username),
+                                  ),
+                                );
+                              },
+                              child: const Icon(
+                                Icons.person,
+                                size: 60,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: size.height * 0.22,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Day-wise Content',
+                            style: Fonts().h3l(context).copyWith(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          Expanded(
+                            child: GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 8.0,
+                                mainAxisSpacing: 8.0,
+                              ),
+                              itemCount: 4,
+                              itemBuilder: (context, index) => Card(
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                color: isContentUnlocked(index)
+                                    ? const Color(0xFFDDF8FF)
+                                    : grey,
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image.asset(
+                                            images[index],
+                                            height: 100,
+                                            width: double.infinity,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            isContentUnlocked(index)
+                                                ? content[index]
+                                                : 'Locked Content',
+                                            style: Fonts()
+                                                .h3m(context)
+                                                .copyWith(
+                                                  color:
+                                                      isContentUnlocked(index)
+                                                          ? Colors.black
+                                                          : Colors.grey,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Positioned.fill(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          if (!isContentUnlocked(index)) {
+                                            showLockedContentPopup(context);
+                                          } else {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    routes[index],
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            // border: Border.all(
+                                            //     color: Colors.grey, width: 2),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: isContentUnlocked(index)
+                                                ? Colors.transparent
+                                                : Colors.black.withOpacity(0.6),
+                                          ),
+                                          child: isContentUnlocked(index)
+                                              ? const SizedBox.shrink()
+                                              : const Center(
+                                                  child: Icon(
+                                                    Icons.lock,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    left: size.width * .4,
+                    child: Column(
+                      children: [
+                        Text(
+                          'poweredby',
+                          style:
+                              Fonts().h4l(context).copyWith(color: Colors.grey),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'Team-',
+                              style: Fonts().h3l(context).copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            Text(
+                              'Up!',
+                              style: Fonts().h3l(context).copyWith(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: size.height * .05),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+      ),
     );
   }
 }
